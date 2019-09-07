@@ -39,9 +39,9 @@ h2 {
 	justify-content: center;
 }
 
-.container div {
+.container .inContatiner {
 	text-align: center;
-	padding : 20px;
+	padding: 20px;
 	margin-top: 10%;
 	width: 600px;
 	height: 350px;
@@ -50,24 +50,31 @@ h2 {
 	box-shadow: inset 0px 0px 41px -18px rgba(0, 0, 0, 1);
 }
 
-.container div button {
-	margin-top: 10%;
+.container .inContatiner button {
+	margin-top: 5%;
 }
 </style>
 
 <body>
 	<div class="container">
-		<div>
+		<div class="inContatiner">
+
 			<h2>UPLOAD THE FILE INTO YOUR GOOGLE DRIVE</h2>
-			<form>
-				
+
+			<form action="/upload" method="POST">
+
+				<div class="form-group" style="text-align: center">
+					<input type="file" class="form-control-file form-control-lg"
+						multiple="multiple" />
+				</div>
+				<button type="submit" class="btn btn-lg btn-success">UPLOAD
+					TO DRIVE</button>
 			</form>
-			
-			<form>
-				<button type="submit" class="btn btn-lg btn-danger">
-					LOG OUT
-				</button>
+
+			<form action="/logout" method="POST">
+				<button type="submit" class="btn btn-lg btn-danger">LOG OUT</button>
 			</form>
+
 		</div>
 	</div>
 </body>

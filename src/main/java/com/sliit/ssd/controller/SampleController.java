@@ -16,5 +16,17 @@ public class SampleController {
 	public String  dashboard() {
 		return "dashboard.html";
 	}
+	
+	@RequestMapping(value="/logout", method=RequestMethod.POST)
+	public String  logout() {
+		System.out.println("Logout button pressed");
+		
+		return "<h1>Logout</h1>";
+	}
+	
+	@RequestMapping(value="/upload", method=RequestMethod.POST)
+	public String  upload() {
+		return "File Upload";
+	}
 
 }
