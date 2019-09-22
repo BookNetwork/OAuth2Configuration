@@ -1,6 +1,6 @@
 package com.sliit.ssd.domain;
 
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
+import com.google.api.client.auth.oauth2.Credential;
 
 public interface OAuthService {
 	
@@ -12,6 +12,6 @@ public interface OAuthService {
 	
 	public String discardUserSession();
 	
-	public boolean userAuthenticationStatus(); 
+	public String userAuthenticationStatus(); 
 	
 }

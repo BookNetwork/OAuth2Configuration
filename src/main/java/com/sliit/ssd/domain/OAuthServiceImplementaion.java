@@ -1,10 +1,23 @@
 package com.sliit.ssd.domain;
 
-import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
+import java.sql.Driver;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.util.store.FileDataStoreFactory;
+
 @Service
-public class OAuthServiceImplementaion implements OAuthService{
+public class OAuthServiceImplementaion implements OAuthService {
+
+	Logger logger = LoggerFactory.getLogger(OAuthServiceImplementaion.class);
+	private GoogleAuthorizationCodeFlow flow;
+	private FileDataStoreFactory dataStoreFactory;
+
+	private Driver drive;
 
 	@Override
 	public Credential credentials() {
@@ -31,11 +44,9 @@ public class OAuthServiceImplementaion implements OAuthService{
 	}
 
 	@Override
-	public boolean userAuthenticationStatus() {
+	public String userAuthenticationStatus() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
-	
-	
 }
