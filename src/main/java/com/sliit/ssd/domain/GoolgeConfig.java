@@ -1,5 +1,6 @@
-package com.sliit.ssd.infrastructure;
+package com.sliit.ssd.domain;
 
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +22,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
-import com.sliit.ssd.domain.OAuthService;
+import com.sliit.ssd.infrastructure.ExternalPropConfig;
 import com.sliit.ssd.utils.Constant;
 
 @Service
@@ -42,19 +43,28 @@ public class GoolgeConfig {
 
 	@PostConstruct
 	public void googleConfigForDrive(Drive drive) {
+
+		logger.info("CREDENTIALS SETUP STARTED");
+
 		Credential credential = oAuthService.credentials();
-		drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(Constant.APPLICATION_NAME)
+		drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(Constant.APP_NAME)
 				.build();
+		
 	}
 
 	@PostConstruct
-	public void googleConfigForAuthorization(Drive drive, GoogleAuthorizationCodeFlow flow, FileDataStoreFactory dataStoreFactory) {
+	public void googleConfigForAuthorization(Drive drive, GoogleAuthorizationCodeFlow flow,
+			FileDataStoreFactory dataStoreFactory) throws IOException {
+
+		logger.info("AUTHORIZATION CONFIG STARTED");
+
 		InputStreamReader reader = new InputStreamReader(externalPropConfig.getSecretKeyFilePath().getInputStream());
 		dataStoreFactory = new FileDataStoreFactory(externalPropConfig.getCredentialsPath().getFile());
 
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, reader);
 		flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets, scope)
 				.setDataStoreFactory(dataStoreFactory).build();
+
 	}
 
 }

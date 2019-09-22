@@ -4,6 +4,7 @@ import java.sql.Driver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.api.client.auth.oauth2.Credential;
@@ -18,6 +19,7 @@ public class OAuthServiceImplementaion implements OAuthService {
 	private FileDataStoreFactory dataStoreFactory;
 
 	private Driver drive;
+
 
 	@Override
 	public Credential credentials() {
