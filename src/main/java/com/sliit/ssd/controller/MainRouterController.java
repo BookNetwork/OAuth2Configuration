@@ -17,6 +17,11 @@ public class MainRouterController {
 		return "dashboard.html";
 	}
 	
+	@RequestMapping(value="/login", method=RequestMethod.GET)
+	public String  googleLogin() {
+		return "dashboard.html";
+	}
+	
 	@RequestMapping(value="/logout", method=RequestMethod.POST)
 	public String  logout() {
 		System.out.println("Logout button pressed");
