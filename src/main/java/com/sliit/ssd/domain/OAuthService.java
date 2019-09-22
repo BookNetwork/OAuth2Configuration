@@ -1,17 +1,21 @@
 package com.sliit.ssd.domain;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import com.google.api.client.auth.oauth2.Credential;
 
 public interface OAuthService {
 	
-	public Credential credentials();
+	public Credential credentials() throws IOException;
 	
-	public String authenticateUser();
+	public String authenticateUser() throws IOException;
 	
-	public String tokenExchange();
+	public void tokenExchange(String CODE) throws IOException;
 	
-	public String discardUserSession();
+	public void discardUserSession(HttpServletRequest request) throws IOException;
 	
-	public String userAuthenticationStatus(); 
+	public String userAuthenticationStatus() throws IOException; 
 	
 }

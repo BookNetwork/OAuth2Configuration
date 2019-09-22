@@ -2,10 +2,9 @@ package com.sliit.ssd.domain;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.Driver;
 import java.util.Collections;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,34 +25,31 @@ import com.sliit.ssd.infrastructure.ExternalPropConfig;
 import com.sliit.ssd.utils.Constant;
 
 @Service
-public class GoolgeConfig {
+public class GoogleIntegrationService {
 
-	private Logger logger = LoggerFactory.getLogger(GoolgeConfig.class);
+	private Logger logger = LoggerFactory.getLogger(GoogleIntegrationService.class);
 
-	public static HttpTransport httpTransport = new NetHttpTransport();
-	public static JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
+	HttpTransport httpTransport = new NetHttpTransport();
+	JsonFactory jsonFactory = JacksonFactory.getDefaultInstance();
 
-	public static final List<String> scope = Collections.singletonList(DriveScopes.DRIVE);
-
-	@Autowired
-	private ExternalPropConfig externalPropConfig;
+	List<String> scope = Collections.singletonList(DriveScopes.DRIVE);
 
 	@Autowired
-	private OAuthService oAuthService;
+	ExternalPropConfig externalPropConfig;
 
-	@PostConstruct
-	public void googleConfigForDrive(Drive drive) {
+	@Autowired
+	OAuthService oAuthService;
+
+	public void googleConfigForDrive(Drive drive) throws IOException {
 
 		logger.info("CREDENTIALS SETUP STARTED");
 
 		Credential credential = oAuthService.credentials();
-		drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(Constant.APP_NAME)
-				.build();
-		
+		drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(Constant.APP_NAME).build();
+
 	}
 
-	@PostConstruct
-	public void googleConfigForAuthorization(Drive drive, GoogleAuthorizationCodeFlow flow,
+	public void googleConfigForAuthorization(Driver drive, GoogleAuthorizationCodeFlow flow,
 			FileDataStoreFactory dataStoreFactory) throws IOException {
 
 		logger.info("AUTHORIZATION CONFIG STARTED");
