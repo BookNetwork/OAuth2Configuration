@@ -1,31 +1,41 @@
 package com.sliit.ssd.domain;
 
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.autoconfigure.ldap.embedded.EmbeddedLdapProperties.Credential;
+import org.springframework.stereotype.Service;
 
-@Configuration
+@Service
 public class OAuthServiceImplementaion implements OAuthService{
 
-	@Value("${google.credentials}")
-	private String credentialsPath;
+	@Override
+	public Credential credentials() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String authenticateUser() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String tokenExchange() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String discardUserSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean userAuthenticationStatus() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	
-	@Value("${google.redirection.uri}")
-	private String redirectionURI;
-
-	public String getCredentialsPath() {
-		return credentialsPath;
-	}
-
-	public void setCredentialsPath(String credentialsPath) {
-		this.credentialsPath = credentialsPath;
-	}
-
-	public String getRedirectionURI() {
-		return redirectionURI;
-	}
-
-	public void setRedirectionURI(String redirectionURI) {
-		this.redirectionURI = redirectionURI;
-	} 
 	
 }
