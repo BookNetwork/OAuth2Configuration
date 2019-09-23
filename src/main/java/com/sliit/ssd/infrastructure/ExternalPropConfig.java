@@ -16,7 +16,7 @@ public class ExternalPropConfig {
 	@Value("${google.api.secret.key.file.path}")
 	private Resource secretKeyFilePath;
 
-	@Value("${app.path}")
+	@Value("${app.path.temp}")
 	private String appPath;
 
 	public String getAppPath() {
