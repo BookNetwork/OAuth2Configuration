@@ -37,7 +37,7 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 	List<String> scope = Collections.singletonList(DriveScopes.DRIVE);
 
-	private GoogleAuthorizationCodeFlow flow;
+	private GoogleAuthorizationCodeFlow googleAuthorizationCodeFlow;
 	private FileDataStoreFactory dataStoreFactory;
 	
 	@Autowired
@@ -46,7 +46,7 @@ public class OAuthServiceImplementaion implements OAuthService {
 	@Override
 	public Credential credentials() throws IOException {
 		
-		return flow.loadCredential(Constant.USER_KEY);
+		return googleAuthorizationCodeFlow.loadCredential(Constant.USER_KEY);
 
 	}
 
@@ -59,7 +59,7 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, reader);
 
-		flow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets, scope)
+		googleAuthorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets, scope)
 				.setDataStoreFactory(dataStoreFactory).build();
 
 		logger.info("AUTHORIZATION CONFIG DONE");
@@ -70,7 +70,7 @@ public class OAuthServiceImplementaion implements OAuthService {
 	@Override
 	public String authenticateUser() throws IOException {
 
-		GoogleAuthorizationCodeRequestUrl url = flow.newAuthorizationUrl();
+		GoogleAuthorizationCodeRequestUrl url = googleAuthorizationCodeFlow.newAuthorizationUrl();
 		String redirectUrl = url.setRedirectUri(externalPropConfig.getRedirectionURI()).setAccessType("offline")
 				.build();
 
@@ -80,9 +80,9 @@ public class OAuthServiceImplementaion implements OAuthService {
 	@Override
 	public void tokenExchange(String CODE) throws IOException {
 
-		GoogleTokenResponse tokenResponse = flow.newTokenRequest(CODE)
+		GoogleTokenResponse tokenResponse = googleAuthorizationCodeFlow.newTokenRequest(CODE)
 				.setRedirectUri(externalPropConfig.getRedirectionURI()).execute();
-		flow.createAndStoreCredential(tokenResponse, Constant.USER_KEY);
+		googleAuthorizationCodeFlow.createAndStoreCredential(tokenResponse, Constant.USER_KEY);
 	}
 
 	@Override
