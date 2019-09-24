@@ -18,16 +18,28 @@ import com.sliit.ssd.domain.OAuthDriverImplementaion;
 import com.sliit.ssd.domain.OAuthService;
 import com.sliit.ssd.utils.AuthStatus;
 
+/**
+ * 
+ * @author fazlan.m
+ *
+ */
 @Controller
 public class MainRouterController {
 
 	@Autowired
 	OAuthService OAuthService;
-	
+
 	@Autowired
 	OAuthDriverImplementaion OAuthDriverImplementaion;
 
 	/**
+	 * 
+	 * index router
+	 * 
+	 * -> if user already logged in to the application it will redirect the user to
+	 * the dashboard
+	 * 
+	 * -> else it will redirect the user into the index page
 	 * 
 	 * @return
 	 * @throws IOException
@@ -46,6 +58,13 @@ public class MainRouterController {
 
 	/**
 	 * 
+	 * dashboard router
+	 * 
+	 * -> if user already logged in to the application it will redirect the user to
+	 * the dashboard
+	 * 
+	 * -> else it will redirect the user into the index page
+	 * 
 	 * @return
 	 * @throws IOException
 	 */
@@ -62,6 +81,10 @@ public class MainRouterController {
 
 	/**
 	 * 
+	 * login router <br>
+	 * 
+	 * authenticating the user.
+	 * 
 	 * @param response
 	 * @throws IOException
 	 */
@@ -71,6 +94,11 @@ public class MainRouterController {
 	}
 
 	/**
+	 * 
+	 * 
+	 * logout router
+	 * 
+	 * discard the user session using this session
 	 * 
 	 * @param request
 	 * @return
@@ -83,6 +111,10 @@ public class MainRouterController {
 	}
 
 	/**
+	 * 
+	 * upload router
+	 * 
+	 * uploading files in GDrive
 	 * 
 	 * @param request
 	 * @param file
@@ -99,6 +131,14 @@ public class MainRouterController {
 
 	/**
 	 * 
+	 * redirect router
+	 * 
+	 * -> if user already logged in to the application it will redirect the user
+	 * to the dashboard
+	 * 
+	 * -> else it will redirect the user into the index page
+	 *
+	 * 
 	 * @param code
 	 * @return
 	 * @throws IOException
@@ -109,7 +149,7 @@ public class MainRouterController {
 		if (code != null) {
 			OAuthService.tokenExchange(code);
 			return "dashboard.html";
-		} else {	
+		} else {
 			return "index.html";
 		}
 
