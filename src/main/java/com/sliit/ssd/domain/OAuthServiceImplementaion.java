@@ -43,6 +43,9 @@ public class OAuthServiceImplementaion implements OAuthService {
 	@Autowired
 	ExternalPropConfig externalPropConfig;
 
+	/**
+	 * 
+	 */
 	@Override
 	public Credential credentials() throws IOException {
 		
@@ -50,6 +53,10 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 	}
 
+	/**
+	 * 
+	 * @throws IOException
+	 */
 	@PostConstruct
 	public void authorizationPreConfiguration() throws IOException {
 		logger.info("AUTHORIZATION CONFIG STARTED");
@@ -67,6 +74,9 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String authenticateUser() throws IOException {
 
@@ -77,6 +87,9 @@ public class OAuthServiceImplementaion implements OAuthService {
 		return redirectUrl;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void tokenExchange(String CODE) throws IOException {
 
@@ -91,6 +104,9 @@ public class OAuthServiceImplementaion implements OAuthService {
 		dataStoreFactory.getDataStore(externalPropConfig.getCredentialsPath().getFilename()).clear();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String userAuthenticationStatus() throws IOException {
 

@@ -27,6 +27,11 @@ public class MainRouterController {
 	@Autowired
 	OAuthDriverImplementaion OAuthDriverImplementaion;
 
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index() throws IOException {
 
@@ -39,6 +44,11 @@ public class MainRouterController {
 
 	}
 
+	/**
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public String dashboard() throws IOException {
 
@@ -50,17 +60,35 @@ public class MainRouterController {
 		}
 	}
 
+	/**
+	 * 
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public void googleLogin(HttpServletResponse response) throws IOException {
 		response.sendRedirect(OAuthService.authenticateUser());
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) throws IOException {
 		OAuthService.discardUserSession(request);
 		return "redirect:/";
 	}
 
+	/**
+	 * 
+	 * @param request
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(HttpServletRequest request, @ModelAttribute FileUploadDTO file) throws Exception {
 
@@ -69,6 +97,12 @@ public class MainRouterController {
 		return "redirect:/dashboard?status=uploaded";
 	}
 
+	/**
+	 * 
+	 * @param code
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value = "/redirect", method = RequestMethod.GET)
 	public String authorizationCode(@RequestParam(name = "code") String code) throws IOException {
 

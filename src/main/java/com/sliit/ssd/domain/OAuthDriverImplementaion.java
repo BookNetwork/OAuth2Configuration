@@ -41,8 +41,13 @@ public class OAuthDriverImplementaion {
 	@Autowired
 	ExternalPropConfig externalPropConfig;
 
+	/**
+	 * 
+	 * @throws Exception
+	 */
 	@PostConstruct
 	public void driverConfig() throws Exception {
+		
 		logger.info("GOOGLE FRIVER CONFIG STARTED");
 
 		Credential credential = authorizationService.credentials();
@@ -52,6 +57,11 @@ public class OAuthDriverImplementaion {
 		logger.info("GOOGLE FRIVER CONFIG END");
 	}
 
+	/**
+	 * 
+	 * @param multipartFile
+	 * @throws Exception
+	 */
 	public void uploadFile(MultipartFile multipartFile) throws Exception {
 		
 		logger.info("FILE UPLOADING PROCESS STARTED");
