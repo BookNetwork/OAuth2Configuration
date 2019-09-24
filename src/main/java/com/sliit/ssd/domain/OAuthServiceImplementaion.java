@@ -71,9 +71,8 @@ public class OAuthServiceImplementaion implements OAuthService {
 	 * 
 	 * Read the secret key file using {@link InputStreamReader} <br>
 	 * 
-	 * Loads the {@code client_secrets.json} file from the given reader. <br> 
-	 * 
-	 * 
+	 * Loads the {@code client_secrets.json} file from the given reader. <br>
+	 *
 	 * @throws IOException
 	 */
 	@PostConstruct
@@ -94,6 +93,8 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 	/**
 	 * 
+	 * Authenticate the user and redirect to the dash board
+	 * 
 	 */
 	@Override
 	public String authenticateUser() throws IOException {
@@ -107,6 +108,10 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 	/**
 	 * 
+	 * -> requesting new token
+	 * 
+	 * -> create and store credentials
+	 * 
 	 */
 	@Override
 	public void tokenExchange(String CODE) throws IOException {
@@ -116,6 +121,11 @@ public class OAuthServiceImplementaion implements OAuthService {
 		googleAuthorizationCodeFlow.createAndStoreCredential(tokenResponse, Constant.USER_KEY);
 	}
 
+	/**
+	 * 
+	 * discarding user session
+	 * 
+	 */
 	@Override
 	public void discardUserSession(HttpServletRequest request) throws IOException {
 
@@ -123,6 +133,10 @@ public class OAuthServiceImplementaion implements OAuthService {
 	}
 
 	/**
+	 * 
+	 * User authenticated status
+	 * 
+	 * It will notify that user is already logged in or not
 	 * 
 	 */
 	@Override
