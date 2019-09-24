@@ -34,7 +34,7 @@ public class MainRouterController {
 			return "redirect:/dashboard";
 
 		} else {
-			return "redirect:/index";
+			return "index.html";
 		}
 
 	}
@@ -46,7 +46,7 @@ public class MainRouterController {
 			return "redirect:/dashboard";
 
 		} else {
-			return "redirect:/index";
+			return "index.html";
 		}
 	}
 
@@ -58,15 +58,15 @@ public class MainRouterController {
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletRequest request) throws IOException {
 		OAuthService.discardUserSession(request);
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/upload", method = RequestMethod.GET)
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(HttpServletRequest request, @ModelAttribute FileUploadDTO file) throws Exception {
 
 		MultipartFile multipartFile = file.getMultipartFile();
 		OAuthDriverImplementaion.uploadFile(multipartFile);
-		return "redirect:/indes?status=uploaded";
+		return "redirect:/dashboard?status=uploaded";
 	}
 
 	@RequestMapping(value = "/redirect", method = RequestMethod.GET)

@@ -56,15 +56,14 @@ h2 {
 </style>
 
 <body>
-	<input type="file" id="file" /> <label for="file" class="btn-2">upload</label>
+	<input type="file" id="file" />
+	<label for="file" class="btn-2">upload</label>
 	<div class="container">
 		<div class="inContatiner">
 
 			<h2>UPLOAD THE FILE INTO YOUR GOOGLE DRIVE</h2>
 
-			<form action="/upload" method="GET">
-
-			
+			<form action="/upload" method="POST" enctype="multipart/form-data">
 
 				<div class="form-group" style="text-align: center">
 					<input type="file" class="form-control-file form-control-lg"

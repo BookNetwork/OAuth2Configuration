@@ -53,7 +53,8 @@ public class OAuthDriverImplementaion {
 	}
 
 	public void uploadFile(MultipartFile multipartFile) throws Exception {
-		logger.debug("Inside Upload Service...");
+		
+		logger.info("FILE UPLOADING PROCESS STARTED");
 
 		String path = externalPropConfig.getAppPath();
 		String fileName = multipartFile.getOriginalFilename();
@@ -68,7 +69,7 @@ public class OAuthDriverImplementaion {
 		FileContent mediaContent = new FileContent(contentType, transferedFile);
 		File file = drive.files().create(fileMetadata, mediaContent).setFields("id").execute();
 
-		logger.debug("File ID: " + file.getName() + ", " + file.getId());
+		logger.info("FILE UPLOADED SUCCESSFULLY");
 	}
 
 }
