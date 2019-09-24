@@ -27,6 +27,11 @@ import com.google.api.services.drive.DriveScopes;
 import com.sliit.ssd.infrastructure.ExternalPropConfig;
 import com.sliit.ssd.utils.Constant;
 
+/**
+ * 
+ * @author fazlan.m
+ *
+ */
 @Service
 public class OAuthServiceImplementaion implements OAuthService {
 
@@ -39,21 +44,35 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 	private GoogleAuthorizationCodeFlow googleAuthorizationCodeFlow;
 	private FileDataStoreFactory dataStoreFactory;
-	
+
 	@Autowired
 	ExternalPropConfig externalPropConfig;
 
 	/**
 	 * 
+	 * <p>
+	 * This is designed to simplify the flow in which an end-user authorizes the
+	 * application to access their protected data, and then the application has
+	 * access to their data based on an access token and a refresh token to refresh
+	 * that access token when it expires.
+	 * </p>
+	 * 
 	 */
 	@Override
 	public Credential credentials() throws IOException {
-		
+
 		return googleAuthorizationCodeFlow.loadCredential(Constant.USER_KEY);
 
 	}
 
 	/**
+	 * 
+	 * authorization pre-configuration
+	 * 
+	 * Read the secret key file using {@link InputStreamReader} <br>
+	 * 
+	 * Loads the {@code client_secrets.json} file from the given reader. <br> 
+	 * 
 	 * 
 	 * @throws IOException
 	 */
@@ -66,11 +85,10 @@ public class OAuthServiceImplementaion implements OAuthService {
 
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(jsonFactory, reader);
 
-		googleAuthorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets, scope)
-				.setDataStoreFactory(dataStoreFactory).build();
+		googleAuthorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(httpTransport, jsonFactory, clientSecrets,
+				scope).setDataStoreFactory(dataStoreFactory).build();
 
 		logger.info("AUTHORIZATION CONFIG DONE");
-		
 
 	}
 

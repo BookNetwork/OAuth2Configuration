@@ -23,6 +23,11 @@ import com.google.api.services.drive.model.File;
 import com.sliit.ssd.infrastructure.ExternalPropConfig;
 import com.sliit.ssd.utils.Constant;
 
+/**
+ * 
+ * @author fazlan.m
+ *
+ */
 @Service
 public class OAuthDriverImplementaion {
 
@@ -43,27 +48,40 @@ public class OAuthDriverImplementaion {
 
 	/**
 	 * 
+	 * configure the credentials
+	 * 
 	 * @throws Exception
 	 */
 	@PostConstruct
 	public void driverConfig() throws Exception {
-		
+
 		logger.info("GOOGLE FRIVER CONFIG STARTED");
 
 		Credential credential = authorizationService.credentials();
-		drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(Constant.APP_NAME)
-				.build();
+		drive = new Drive.Builder(httpTransport, jsonFactory, credential).setApplicationName(Constant.APP_NAME).build();
 
 		logger.info("GOOGLE FRIVER CONFIG END");
 	}
 
 	/**
 	 * 
+	 * -> get the local application path <br>
+	 * -> get the original file name requested from the parameter <br>
+	 * -> get the content type of the requested from the parameter <br>
+	 * 
+	 * -> transfer the file to multipart file
+	 * 
+	 * -> set the file name for the file meta data
+	 * 
+	 * -> set file content while parsing the content type and the transfered file
+	 * 
+	 * -> save into the driver
+	 * 
 	 * @param multipartFile
 	 * @throws Exception
 	 */
 	public void uploadFile(MultipartFile multipartFile) throws Exception {
-		
+
 		logger.info("FILE UPLOADING PROCESS STARTED");
 
 		String path = externalPropConfig.getAppPath();
@@ -76,11 +94,11 @@ public class OAuthDriverImplementaion {
 		File fileMetadata = new File();
 		fileMetadata.setName(fileName);
 
-		FileContent mediaContent = new FileContent(contentType, transferedFile);
-		File file = drive.files().create(fileMetadata, mediaContent).setFields("id").execute();
+		FileContent fileContent = new FileContent(contentType, transferedFile);
+		File file = drive.files().create(fileMetadata, fileContent).setFields("id").execute();
 
-		logger.info("FILE "+  file.getName()  + " UPLOADED SUCCESSFULLY");
-		
+		logger.info("FILE " + file.getName() + " UPLOADED SUCCESSFULLY");
+
 	}
 
 }
