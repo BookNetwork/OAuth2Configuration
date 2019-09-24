@@ -69,7 +69,8 @@ public class OAuthDriverImplementaion {
 		FileContent mediaContent = new FileContent(contentType, transferedFile);
 		File file = drive.files().create(fileMetadata, mediaContent).setFields("id").execute();
 
-		logger.info("FILE UPLOADED SUCCESSFULLY");
+		logger.info("FILE "+  file.getName()  + " UPLOADED SUCCESSFULLY");
+		
 	}
 
 }

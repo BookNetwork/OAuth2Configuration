@@ -53,24 +53,48 @@ h2 {
 .container .inContatiner button {
 	margin-top: 5%;
 }
+
+.upload-btn-wrapper {
+	position: relative;
+	overflow: hidden;
+	display: inline-block;
+}
+
+.uploadButton {
+	border: 2px solid gray;
+	color: gray;
+	background-color: white;
+	padding: 8px 20px;
+	border-radius: 8px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.upload-btn-wrapper input[type=file] {
+	font-size: 100px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	opacity: 0;
+}
 </style>
 
 <body>
-	<input type="file" id="file" />
-	<label for="file" class="btn-2">upload</label>
 	<div class="container">
 		<div class="inContatiner">
 
 			<h2>UPLOAD THE FILE INTO YOUR GOOGLE DRIVE</h2>
 
 			<form action="/upload" method="POST" enctype="multipart/form-data">
-
-				<div class="form-group" style="text-align: center">
-					<input type="file" class="form-control-file form-control-lg"
-						multiple="multiple" />
+				<div class="upload-btn-wrapper">
+					<button class="btn uploadButton">CHOOSE FILE</button>
+					<input type="file" id="myfile" name="myfile" multiple="multiple"
+						required />
 				</div>
-				<button type="submit" class="btn btn-lg btn-success">UPLOAD
-					TO DRIVE</button>
+				<br>
+				<button type="submit" class="btn btn-lg btn-success">
+					UPLOAD</button>
+
 			</form>
 
 			<form action="/logout" method="GET">
